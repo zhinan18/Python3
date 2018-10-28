@@ -2,15 +2,25 @@ import easygui,random
 secret = random.randint(1, 99)
 guess = 0
 tries = 0
-easygui.msgbox("""AHOY! I'm the Dread Pirate Roberts, and I have a secret!
-It is a number from 1 to 99. I'll give you 6 tries.""")
+easygui.msgbox("""AHOY! I'm the Dread Pirate Roberts, and I have a 
+secret! It is a number from 1 to 99. I'll give you 6 tries.""")
 while guess != secret and tries < 6:
     guess = easygui.integerbox("What's yer guess, matey?")
+    easygui.enterbox("名字")
     if not guess:break
     if guess < secret:
-        easygui.msgbox(str(guess) + " is too low, ye scurvy dog!")
+        top = 1
+    if guess == secret:
+        top = 1
+        easygui.msgbox(str(guess) +
+        " is too low! There are "+
+        str(6-tries)+" other "
+        "opportunities leftchances")
     elif guess > secret:
-        easygui.msgbox(str(guess) + " is too high, landlubber!")
+        easygui.msgbox(str(guess) +
+        " is too high, There are "+
+        str(6-tries)+" other "
+       "opportunities leftchances")
     tries = tries + 1
 if guess == secret:
     easygui.msgbox("Avast! Ye got it! Found my secret, ye did!")
