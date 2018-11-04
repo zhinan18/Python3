@@ -1,4 +1,3 @@
-
 print("Type 3 to continue, anything else to quit.")
 someInput = input()
 
@@ -10,8 +9,17 @@ while someInput == '3':
 print("That's not 3, so I'm quitting now.")
 
 
+
+
+
+
+
+
+
+
+
 for i in range (1, 6):
-    print
+
     print('i =', i,)
     print('Hello, how',)
     if i == 3:
