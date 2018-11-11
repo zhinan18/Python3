@@ -15,9 +15,9 @@ for dog in [0, 1]:                                  # dog is the outer loop
                 for onion in [0, 1]:
                     # calulate calories in the inner loop
                     #   Note the line continuation characters
-                    total_cal = (bun * bun_cal) + (dog * dog_cal) + \
-                                (ketchup * ket_cal) + (mustard * mus_cal) + \
-                                (onion * onion_cal)
+                    total_cal = (bun * bun_cal) + (dog * dog_cal) +\
+                     (ketchup * ket_cal) + (mustard * mus_cal) + \
+                     (onion * onion_cal)
                     print("#", count, "\t", end="")
                     print(dog, "\t", bun, "\t", ketchup, "\t", end="")
                     print(mustard, "\t", onion, end="")

@@ -6,6 +6,6 @@ for dog in [0, 1]:                                 # dog loop
             for mustard in [0, 1]:                 # mustard loop
                 for onion in [0, 1]:               # onion loop
                     print("#", count, "\t", end="")
-                    print(dog, "\t", bun, "\t", ketchup,"\t", end="")
+                    print(dog, "\t", bun, "\t", ketchup, "\t", end="")
                     print("\t", mustard, "\t\t", onion)
                     count = count + 1

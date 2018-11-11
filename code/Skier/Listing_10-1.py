@@ -91,7 +91,7 @@ running = True
 while running:
     clock.tick(30)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: running = False
+        #if event.type == pygame.QUIT: running = False
         print(event.type)
         if event.type == pygame.KEYDOWN:          # check for key presses
             if event.key == pygame.K_LEFT:        # left arrow turns left
