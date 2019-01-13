@@ -8,7 +8,8 @@ for i in range(100):
     height = random.randint(0, 100)
     top = random.randint(0, 400)
     left = random.randint(0, 500)
-    pygame.draw.rect(screen, [0, 0, 0], [left, top, width, height], 1)
+    line_width = random.randint(1,5)
+    pygame.draw.rect(screen, [0, 0, 0], [left, top, width, height], line_width)
     pygame.display.flip()
     pygame.time.delay(30)
 running = True
