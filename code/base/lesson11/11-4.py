@@ -4,7 +4,7 @@ screen = pygame.display.set_mode([640,480])
 screen.fill([255, 255, 255])
 
 # draw circle in the middle of the Pygame window
-pygame.draw.circle(screen, [255, 0, 0], [320, 240], 30, 0)    # [320,240] is the new location
+pygame.draw.circle(screen, [0, 255, 255], [320, 240], 30, 0)    # [320,240] is the new location
 pygame.display.flip()
 running = True
 while running:

@@ -1,6 +1,6 @@
 import pygame
 pygame.init()
-screen = pygame.display.set_mode([640,480])
+screen = pygame.display.set_mode([640, 480])
 screen.fill([255, 255, 255])
 my_ball = pygame.image.load("beach_ball.png")      # load the image from a file
 screen.blit(my_ball, [50, 50])                     # draw or 'blit' it to the screen

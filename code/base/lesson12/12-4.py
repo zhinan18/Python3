@@ -52,8 +52,8 @@ screen.fill([255, 255, 255])
 img_file = "beach_ball.png"
 clock = pygame.time.Clock()
 group = pygame.sprite.Group()
-for row in range(0, 2):
-    for column in range(0, 2):
+for row in range(0, 3):
+    for column in range(0, 3):
         location = [column * 180 + 10, row * 180 + 10]
         speed = [choice([-4, 4]), choice([-4, 4])]
         ball = MyBallClass(img_file, location, speed)

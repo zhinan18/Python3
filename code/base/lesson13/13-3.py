@@ -5,7 +5,7 @@
 
 # Using a timer event to move the ball up and down
 
-import pygame, sys
+import pygame
 
 pygame.init()
 screen = pygame.display.set_mode([640, 480])

@@ -59,8 +59,8 @@ screen = pygame.display.set_mode(size)
 screen.fill([255, 255, 255])
 img_file = "beach_ball.png"
 group = pygame.sprite.Group()
-for row in range(0, 2):
-    for column in range(0, 2):
+for row in range(0, 3):
+    for column in range(0, 3):
         location = [column * 180 + 10, row * 180 + 10]
         speed = [choice([-2, 2]), choice([-2, 2])]
         ball = MyBallClass(img_file, location, speed)
