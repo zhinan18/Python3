@@ -5,7 +5,7 @@
 
 # Music and sound with volume adjustment
 
-import pygame, sys
+import pygame
 pygame.init()
 pygame.mixer.init()
 

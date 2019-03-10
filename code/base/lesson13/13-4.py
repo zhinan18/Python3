@@ -1,10 +1,4 @@
 # Listing_18-4.py
-# Copyright Warren & Carter Sande, 2013
-# Released under MIT license   http://www.opensource.org/licenses/mit-license.php
-# Version $version  ----------------------------
-
-# First version of PyPong
-
 import pygame, sys
 from pygame.locals import *
 

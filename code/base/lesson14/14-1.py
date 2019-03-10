@@ -8,11 +8,11 @@
 import pygame
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode([640,480])
+screen = pygame.display.set_mode([640, 480])
 pygame.time.delay(1000)    # Wait a second for the mixer to finish initializing
 
 splat = pygame.mixer.Sound("splat.wav")   # Create the Sound object
-splat.play()                              # Play the sound
+splat.play()
 
 running = True
 while running:

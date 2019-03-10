@@ -46,7 +46,7 @@ clock = pygame.time.Clock()
 myBall = MyBallClass('wackyball.bmp', [10, 5], [50, 50])
 ballGroup = pygame.sprite.Group(myBall)
 paddle = MyPaddleClass([270, 400])
-lives = 3
+lives = 30
 score = 0
 
 score_font = pygame.font.Font(None, 50)
@@ -73,8 +73,9 @@ while running:
         screen.blit(paddle.image, paddle.rect)
         screen.blit(score_surf, score_pos)
         for i in range(lives):
-            width = screen.get_width()
-            screen.blit(myBall.image, [width - 40 * i, 20])
+            if i < 10:
+                width = screen.get_width()
+                screen.blit(myBall.image, [width - 40 * i, 20])
         pygame.display.flip()
 
     if myBall.rect.top >= screen.get_rect().bottom:

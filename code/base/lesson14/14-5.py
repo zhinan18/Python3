@@ -5,7 +5,7 @@
 
 # PyPong with sounds and music
 
-import pygame, sys
+import pygame
 
 
 class MyBallClass(pygame.sprite.Sprite):
