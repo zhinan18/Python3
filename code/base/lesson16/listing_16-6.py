@@ -5,7 +5,7 @@
 
 # Using pickle to store a list to a file
 import pickle
-my_list = ['Fred', 73, 'Hello there', 81.9876e-13]
-pickle_file = open('my_pickled_list.pkl', 'wb')
+my_list = ['Fred', 73, 'Hello there']
+pickle_file = open('my_p.pkl', 'wb')
 pickle.dump(my_list, pickle_file)
 pickle_file.close()

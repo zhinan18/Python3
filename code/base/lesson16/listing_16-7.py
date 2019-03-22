@@ -5,7 +5,7 @@
 
 # Unpickling using load()
 import pickle
-pickle_file = open('my_pickled_list.pkl', 'rb')
+pickle_file = open('my_p.pkl', 'rb')
 recovered_list = pickle.load(pickle_file)
 pickle_file.close()
 
