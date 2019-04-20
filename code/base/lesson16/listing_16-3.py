@@ -3,9 +3,12 @@
 # Released under MIT license   http://www.opensource.org/licenses/mit-license.php
 # Version $version  ----------------------------
 
-# using append mode
 
-todo_list = open('notes.txt', 'a')     # Opens the file in append mode
+# content = todo_list.readlines()
+# using append mode
+name = input("input your name")
+todo_list = open('notes.txt', 'w')     # Opens the file in append mode
 todo_list.write('\nSpend allowance')   # Adds our string to the end
+todo_list.write(name)
 todo_list.close()                      # Closes the file
 
