@@ -25,13 +25,13 @@ class Card:
         
         # create suit attribute    
         if self.suit_id == 1:
-            self.suit = "Diamonds"
+            self.suit = "方块"
         elif self.suit_id == 2:
-            self.suit = "Hearts"
+            self.suit = "红桃"
         elif self.suit_id == 3:
-            self.suit = "Spades"
+            self.suit = "黑桃"
         elif self.suit_id == 4: 
-            self.suit = "Clubs" 
+            self.suit = "梅花"
         else:
             self.suit = "SuitError"          # do some error-checking
         self.short_name = self.rank[0] + self.suit[0]
