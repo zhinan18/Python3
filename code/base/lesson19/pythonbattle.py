@@ -10,18 +10,22 @@ import pygame
 import time
 pygame.init()
 
+
 class OutOfTurnError(Exception):
     """ A custom exception describing a state in which a robot moves out of turn"""
-    def __init__(self,botname):
+    def __init__(self, botname):
         self.botname = botname
+
     def __str__(self):
         return "Robot "+self.botname+" tried to call function when it wasn't his turn"
+
 
 class RobotIsDefeatedError(Exception):
     """ A custom exception describing a state in which a robot moves while it
 is defeated."""
     def __init__(self,botname):
         self.botname = botname
+
     def __str__(self):
         return "Robot "+self.botname+" tried to call function while defeated"
 
@@ -54,7 +58,7 @@ class Robot:
         elif self.rotation == 3:
             return (self.position[0]-1,self.position[1])
 
-    def _getSpace(self,space):
+    def _getSpace(self, space):
         global field
         if space == self.position:
             return "me"

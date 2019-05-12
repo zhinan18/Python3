@@ -14,11 +14,13 @@
 class AI:
     def __init__(self):
         pass
+
     def turn(self):
         if self.robot.lookInFront() == "bot":
             self.robot.attack()
         else:
             self.goTowards(self.robot.locateEnemy()[0])
+
     def goTowards(self,enemyLocation):
         myLocation = self.robot.position
         delta = (enemyLocation[0]-myLocation[0],enemyLocation[1]-myLocation[1])
