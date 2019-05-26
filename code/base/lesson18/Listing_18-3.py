@@ -9,6 +9,7 @@ import datetime
 import pickle
 import os                                                                  
 
+
 first_time = True
 if os.path.isfile("last_run.pkl"):            # check if pickle file exists                               
     pickle_file = open("last_run.pkl", 'rb')   # open the pickle file for reading

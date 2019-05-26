@@ -12,15 +12,17 @@
 
 class AI:
     def __init__(self):
-        self.currentlyDoing = "forward"
+        self.isFirstTurn = True
+
     def turn(self):
         if self.robot.lookInFront() == "bot":
             self.robot.attack()
+        elif self.isFirstTurn:
+            self.robot.turnRight()
+            self.isFirstTurn = False
         elif self.robot.lookInFront() == "wall":
             self.robot.turnRight()
             self.currentlyDoing = "turnRight"
-        elif self.currentlyDoing == "turnRight":
-            self.robot.turnRight()
-            self.currentlyDoing = "forward"
-        else:
+        else :
             self.robot.goForth()
+
