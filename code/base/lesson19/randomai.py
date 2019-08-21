@@ -21,4 +21,4 @@ class AI:
             self.robot.attack()
             return
         else:
-            random.choice([self.robot.turnLeft,self.robot.turnRight,self.robot.goForth,self.robot.goForth])()
+            random.choice([self.robot.turnLeft,self.robot.turnRight,self.robot.goForth])()

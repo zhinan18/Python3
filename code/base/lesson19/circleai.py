@@ -18,7 +18,7 @@ class AI:
             self.isFirstTurn = False
         elif self.robot.lookInFront() == "bot":
             self.robot.attack()
-        elif self.robot.lookInFront()== "wall":
+        elif self.robot.lookInFront() == "wall":
             self.robot.turnLeft()
         else:
             self.robot.goForth()
