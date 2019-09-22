@@ -3,30 +3,22 @@ import json
 import pymysql
 import openpyxl
 
+# 打开数据库连接
+db = pymysql.connect("localhost", "root", "werered", "livestream_yidong")
+cursor = db.cursor()
+
 eventId = input("eventId:")
+i = 0
+sql = "SELECT * FROM user_view_info \
+       WHERE event_id = %s" % (eventId)
 url = 'http://heshangwubeiyong.migucloud.com:8890/mobile/expData'
 body = {"eventsId": eventId, "permisionType": "2"}
 headers = {'content-type': "application/json"}
+THREE_HOURS = 120
 
-# 打开数据库连接
-db = pymysql.connect("localhost", "root", "werered", "livestream_yidong")
-
-# 使用cursor()方法获取操作游标
-cursor = db.cursor()
-
-# print type(json.dumps(body))
-# 这里有个细节，如果body需要json形式的话，需要做处理
-# 可以是data = json.dumps(body)
 response = requests.post(url, data=json.dumps(body), headers=headers)
-# 也可以直接将data字段换成json字段，2.4.3版本之后支持
-# response  = requests.post(url, json = body, headers = headers)
-
 # 返回信息
 resp = json.loads(response.text)
-i = 0
-
-
-
 try:
     cursor.execute("DELETE from view_info")
     for userTime in resp['data']:
@@ -46,8 +38,6 @@ except:
     db.rollback()
     print("error db")
 
-sql = "SELECT * FROM user_view_info \
-       WHERE event_id = %s" % (eventId)
 workSpace = openpyxl.Workbook()
 sheet = workSpace.create_sheet("观看信息", 0)
 sheet.cell(1, 1, "姓名")
@@ -67,7 +57,11 @@ try:
        sheet.cell(i, 2, row[2])
        sheet.cell(i, 3, row[3])
        sheet.cell(i, 4, row[4])
-       sheet.cell(i, 5, row[5])
+       if row[5] > THREE_HOURS:
+           sheet.cell(i, 5, THREE_HOURS)
+       else:
+           sheet.cell(i, 5, row[5])
+
 except:
     print ("Error: unable to fetch data")
 workSpace.save(eventId+".xlsx")
