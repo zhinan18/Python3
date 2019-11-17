@@ -14,7 +14,7 @@ sql = "SELECT * FROM user_view_info \
 url = 'http://heshangwubeiyong.migucloud.com:8890/mobile/expData'
 body = {"eventsId": eventId, "permisionType": "2"}
 headers = {'content-type': "application/json"}
-THREE_HOURS = 120
+THREE_HOURS = 240
 
 response = requests.post(url, data=json.dumps(body), headers=headers)
 # 返回信息
