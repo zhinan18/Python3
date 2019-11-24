@@ -2,7 +2,8 @@ import logging; logging.basicConfig(level=logging.INFO)
 import asyncio
 from aiohttp import web
 from models import User
-import orm
+
+
 
 def index(request):
     return web.Response(body=b'<h1>Awesome</h1>',
@@ -18,13 +19,6 @@ def init(custom_loop):
     return srv
 
 
-def test():
-    yield from orm.create_pool(user='root', password='werered', database='awesome')
-    u = User(name='Test', email='test@example.com', passwd='1234567890', image='about:blank')
-    yield from u.save()
-
-
-test()
 loop = asyncio.get_event_loop()
 loop.run_until_complete(init(loop))
 loop.run_forever()
