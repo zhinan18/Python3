@@ -1,7 +1,6 @@
 import orm
 from models import User, Blog, Comment
 import asyncio
-from config import configs
 
 
 @asyncio.coroutine
