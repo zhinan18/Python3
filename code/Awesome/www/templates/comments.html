@@ -1,0 +1,30 @@
+{% extends '__base__.html' %}
+
+{% block title %}账号{% endblock %}
+
+{% block beforehead %}
+
+<script>
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="uk-width-medium-3-4">
+    {% for comments in comments %}
+        <article class="uk-article">
+            <h1><a href="/comments/{{ comments.name}}">{{ comments.name }}</a></h1>
+            <h4><a href="/comments/{{comments.image}}">{{comments.image}}</a></h4>
+            <h2><a href="/comments/{{comments.content}}">{{comments.content}}</a></h2>
+        <hr class="uk-article-divider">
+    {% endfor %}
+    </div>
+
+    <div class="uk-width-medium-1-4">
+        <div class="uk-panel uk-panel-header">
+            <h3 class="uk-panel-title">友情链接</h3>
+        </div>
+    </div>
+
+{% endblock %}
