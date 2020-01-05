@@ -3,11 +3,19 @@
 ' url handlers '
 
 import re, time, json, logging, hashlib, base64, asyncio
-from coroweb import get
+
+from aiohttp import web
+
+from config import configs
+from coroweb import get, post, delete
 from models import Blog
 from models import User
 from models import Comment
-from apis import Page
+from models import next_id
+from apis import Page, APIResourceNotFoundError, APIValueError, APIError
+
+COOKIE_NAME = 'awesession'
+_COOKIE_KEY = configs.session.secret
 
 def get_page_index(page_str):
     p = 1
@@ -28,6 +36,52 @@ def index(request):
         'blogs': blogs
     }
 
+_RE_EMAIL = re.compile(r'^[a-z0-9\.\-\_]+\@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$')
+_RE_SHA1 = re.compile(r'^[0-9a-f]{40}$')
+
+@asyncio.coroutine
+def cookie2user(cookie_str):
+    '''
+    Parse cookie and load user if cookie is valid.
+    '''
+    if not cookie_str:
+        return None
+    try:
+        L = cookie_str.split('-')
+        if len(L) != 3:
+            return None
+        uid, expires, sha1 = L
+        if int(expires) < time.time():
+            return None
+        user = yield from User.find(uid)
+        if user is None:
+            return None
+        s = '%s-%s-%s-%s' % (uid, user.passwd, expires, _COOKIE_KEY)
+        if sha1 != hashlib.sha1(s.encode('utf-8')).hexdigest():
+            logging.info('invalid sha1')
+            return None
+        user.passwd = '******'
+        return user
+    except Exception as e:
+        logging.exception(e)
+        return None
+
+def user2cookie(user, max_age):
+    '''
+    Generate cookie str by user.
+    '''
+    # build cookie string by: id-expires-sha1
+    expires = str(int(time.time() + max_age))
+    s = '%s-%s-%s-%s' % (user.id, user.passwd, expires, _COOKIE_KEY)
+    L = [user.id, expires, hashlib.sha1(s.encode('utf-8')).hexdigest()]
+    return '-'.join(L)
+
+#用户注册接口
+@post('/api/users')
+def api_register_user(*, email, name, passwd):
+
+
+
 @get('/user')
 def getuser(request):
     users = yield from User.findAll(orderBy='created_at desc')
@@ -46,7 +100,7 @@ def getcomments(request):
     }
 
 @get('/api/blogs')
-def api_blogs(*, page='1'):
+def api_blogs(*args, page='1'):
     page_index = get_page_index(page)
     num = yield from Blog.findNumber('count(id)')
     p = Page(num, page_index)
@@ -55,3 +109,42 @@ def api_blogs(*, page='1'):
     blogs = yield from Blog.findAll(orderBy='created_at desc',
                                     limit=(p.offset, p.limit))
     return dict(page=p, blogs=blogs)
+#
+# @post('/api/blogs')
+# def api_blogs(*, page ='1'):
+#     num = yield from Blog.findNumber('count(id)')
+#     if num == 0:
+#     blogs = yield from Blog.findAll(orderBy='created_at desc',
+#                                     limit=(p.offset, p.limit))
+#     return dict(page=p, blogs=blogs)
+
+@delete('/api/blos/{id}')
+def api_deleteblogs(id):
+    c = yield from Blog.find(id)
+    if c is None:
+        raise APIResourceNotFoundError('Blog')
+    yield from c.remove()
+    return dict(id=id)
+
+@delete('/api/users/{id}')
+def api_deleteusers(id):
+    c = yield from User.find(id)
+    if c is None:
+        raise APIResourceNotFoundError('User')
+    yield from c.remove()
+    return dict(id=id)
+
+@get('/register')
+def register():
+    return {
+        '__template__': 'register.html'
+    }
+
+@get('/signin')
+def signin():
+    return {
+        '__template__': 'signin.html'
+    }
+
+@post('/api/authenticate')
+def authenticate(*, email, passwd):
