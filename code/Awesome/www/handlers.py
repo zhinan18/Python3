@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'Michael Liao'
-
 ' url handlers '
 
 import re, time, json, logging, hashlib, base64, asyncio
@@ -14,7 +12,7 @@ from aiohttp import web
 from coroweb import get, post
 from apis import Page, APIValueError, APIResourceNotFoundError
 
-from models import User, Comment, Blog, next_id
+from models import User, ment, Blog, next_id
 from config import configs
 
 COOKIE_NAME = 'awesession'
@@ -189,39 +187,30 @@ def manage_users(*, page='1'):
         'page_index': get_page_index(page)
     }
 
+
+''' 评论接口'''
 @get('/api/comments')
 def api_comments(*, page='1'):
     page_index = get_page_index(page)
     num = yield from Comment.findNumber('count(id)')
     p = Page(num, page_index)
-    if num == 0:
-        return dict(page=p, comments=())
-    comments = yield from Comment.findAll(orderBy='created_at desc', limit=(p.offset, p.limit))
-    return dict(page=p, comments=comments)
+    
+    comment = None
+    return dict(page=p, comments=comment)
 
 @post('/api/blogs/{id}/comments')
 def api_create_comment(id, request, *, content):
     user = request.__user__
-    if user is None:
-        raise APIPermissionError('Please signin first.')
-    if not content or not content.strip():
-        raise APIValueError('content')
-    blog = yield from Blog.find(id)
-    if blog is None:
-        raise APIResourceNotFoundError('Blog')
-    comment = Comment(blog_id=blog.id, user_id=user.id, user_name=user.name, user_image=user.image, content=content.strip())
-    yield from comment.save()
+
     return comment
 
 @post('/api/comments/{id}/delete')
 def api_delete_comments(id, request):
-    check_admin(request)
-    c = yield from Comment.find(id)
-    if c is None:
-        raise APIResourceNotFoundError('Comment')
-    yield from c.remove()
+
     return dict(id=id)
 
+
+'''--------------------------------------------------------'''
 @get('/api/users')
 def api_get_users(*, page='1'):
     page_index = get_page_index(page)

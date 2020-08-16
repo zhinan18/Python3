@@ -5,15 +5,28 @@
 Default configurations.
 '''
 
-__author__ = 'Michael Liao'
+
+# configs = {
+#     'debug': True,
+#     'db': {
+#         'host': '127.0.0.1',
+#         'port': 3306,
+#         'user': 'root',
+#         'password': 'werered',
+#         'db': 'awesome'
+#     },
+#     'session': {
+#         'secret': 'Awesome'
+#     }
+# }
 
 configs = {
     'debug': True,
     'db': {
-        'host': '127.0.0.1',
+        'host': '192.168.43.90',
         'port': 3306,
-        'user': 'root',
-        'password': 'werered',
+        'user': 'hzz',
+        'password': '1234',
         'db': 'awesome'
     },
     'session': {
