@@ -23,7 +23,7 @@ Default configurations.
 configs = {
     'debug': True,
     'db': {
-        'host': '192.168.43.90',
+        'host': '192.168.1.11',
         'port': 3306,
         'user': 'hzz',
         'password': '1234',

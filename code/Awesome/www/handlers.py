@@ -12,7 +12,7 @@ from aiohttp import web
 from coroweb import get, post
 from apis import Page, APIValueError, APIResourceNotFoundError
 
-from models import User, ment, Blog, next_id
+from models import User, Blog, next_id, Comment
 from config import configs
 
 COOKIE_NAME = 'awesession'
@@ -194,14 +194,31 @@ def api_comments(*, page='1'):
     page_index = get_page_index(page)
     num = yield from Comment.findNumber('count(id)')
     p = Page(num, page_index)
-    
+
     comment = None
     return dict(page=p, comments=comment)
 
 @post('/api/blogs/{id}/comments')
 def api_create_comment(id, request, *, content):
     user = request.__user__
+    # 判断id 是否空
+    #判断 content 是否空
+    # 判断用户是否等于空
+    #coment 赋值
+    user = request.__user__
 
+    if not id or not id.strip():
+        raise APIValueError('id', 'id cannot be empty.')
+    if not user:
+        raise APIValueError('user', 'user cannot be empty.')
+    if not content or not content.strip():
+        raise APIValueError('content', 'content cannot be empty.')
+    comment = Comment(blog_id=id,user_id = user.id,user_name=user.name,user_image=user.image,content=content)
+    yield from comment.save()
+    return comment
+
+
+    comment = Comment(user_id = user.id)
     return comment
 
 @post('/api/comments/{id}/delete')

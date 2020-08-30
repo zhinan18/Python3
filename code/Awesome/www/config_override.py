@@ -9,6 +9,6 @@ __author__ = 'Michael Liao'
 
 configs = {
     'db': {
-        'host': '192.168.43.90'
+        'host': '192.168.1.11'
     }
 }
